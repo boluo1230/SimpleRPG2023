@@ -49,7 +49,7 @@ public class JavalinWeapon : Weapon
             Destroy(bulletGo, 1f);
             bulletGo = null;
 
-            //0.5s后调用
+            //0.1s后调用
             Invoke("SpawnBullet", 0.1f);
         }
         else
@@ -85,6 +85,9 @@ public class JavalinWeapon : Weapon
         bulletGo.transform.SetParent(transform);
 
         Debug.Log("SpawnBullet bulletGo set parent: " + transform.position);
+
+
+
     }
 
 }

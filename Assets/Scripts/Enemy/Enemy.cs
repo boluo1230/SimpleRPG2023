@@ -82,15 +82,20 @@ public class Enemy : MonoBehaviour
         if (HP <= 0)
         {
             GetComponent<Collider>().enabled = false;
-            int count = Random.Range(0, 4);
+            int count = Random.Range(1, 4);
             for (int i = 0; i < count; i++)
             {
                 ItemSO item = ItemDBManager.Instance.GetRandomItem();
 
                 //原地爆装备
                 //Quaternion.identity 表示“无旋转”（即朝向与世界坐标系对齐）
+                if (item.prefab == null)
+                {
+                    Debug.Log("TakeDamage go name null:");
+                }
+                Debug.Log("TakeDamage go name :" + item.prefab.name);
                 GameObject go = GameObject.Instantiate(item.prefab, transform.position, Quaternion.identity);
-                
+                go.tag = Tag.INTERACTABLE;
 
                 //禁用掉动画，不然生成的位置会被动画受影响
                 Animator anim = go.GetComponent<Animator>();
@@ -98,6 +103,11 @@ public class Enemy : MonoBehaviour
                 {
                     anim.enabled = false;
                 }
+
+                go.GetComponent<Rigidbody>().isKinematic = false;
+
+                PickableObject po = go.AddComponent<PickableObject>();
+                po.itemSO = item;
 
             }
             Destroy(this.gameObject);
