@@ -15,10 +15,10 @@ public class ScytheWeapon : Weapon
 
     private void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Attack();
-        //}
+        if (Input.GetMouseButtonDown(0))
+        {
+            Attack();
+        }
     }
 
     public override void Attack()
@@ -32,6 +32,8 @@ public class ScytheWeapon : Weapon
         {
             //碰撞到敌人
             Debug.Log("Trigger with " + other.name);
+
+            other.gameObject.GetComponent<Enemy>().TakeDamage(attackValue);
         }
     }
 

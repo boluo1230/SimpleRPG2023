@@ -62,10 +62,10 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            TakeDamage(30);
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    TakeDamage(30);
+        //}
 
     }
 
@@ -95,6 +95,7 @@ public class Enemy : MonoBehaviour
                 }
                 Debug.Log("TakeDamage go name :" + item.prefab.name);
                 GameObject go = GameObject.Instantiate(item.prefab, transform.position, Quaternion.identity);
+                go.SetActive(true);
                 go.tag = Tag.INTERACTABLE;
 
                 //禁用掉动画，不然生成的位置会被动画受影响
@@ -105,6 +106,10 @@ public class Enemy : MonoBehaviour
                 }
 
                 go.GetComponent<Rigidbody>().isKinematic = false;
+                go.GetComponent<Rigidbody>().useGravity = true; //重力
+
+                go.GetComponent<Collider>().enabled = true;
+                go.GetComponent<Collider>().isTrigger = false;
 
                 PickableObject po = go.AddComponent<PickableObject>();
                 po.itemSO = item;

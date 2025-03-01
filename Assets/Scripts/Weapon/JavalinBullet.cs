@@ -7,6 +7,7 @@ public class JavalinBullet : MonoBehaviour
 
     private Rigidbody rgd;
     private Collider col;
+    public int attackValue;
 
     private void Start()
     {
@@ -35,6 +36,11 @@ public class JavalinBullet : MonoBehaviour
         else
         {
             Debug.LogWarning("Collider is null, skipping disable: " + gameObject.name);
+        }
+
+        if (collision.gameObject.tag == Tag.ENEMY)
+        {
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(attackValue);
         }
 
         Destroy(this.gameObject, 0.5f);
